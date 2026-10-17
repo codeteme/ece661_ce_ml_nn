@@ -223,3 +223,4 @@ __marimo__/
 .streamlit/secrets.toml
 # Large dataset files (exceed GitHub 100 MB limit)
 hw_2/data/
+hw_3/gpt2-wikitext-2/
