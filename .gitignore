@@ -224,3 +224,4 @@ __marimo__/
 # Large dataset files (exceed GitHub 100 MB limit)
 hw_2/data/
 hw_3/gpt2-wikitext-2/
+hw_3/gpt2-lora-wikitext-2/
