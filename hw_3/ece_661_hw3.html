@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ece_661_hw3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1-truefalse-questions">1. True/False Questions</h1>
+<p><strong>Problem 1.1</strong> False. The forget gate is the only gate that scales the old state c{t-1}.
+The input gate and output gate act on the new candidate and the output.</p>
+<p><strong>Problem 1.2</strong> True. Each head uses size d/h, so one head costs O(n²·d/h).
+With h heads, the total is h × O(n²·d/h) = O(n²d). The cost stays the same.</p>
+<p><strong>Problem 1.3</strong> False. BPE is bottom-up. Also BERT does not use BPE.</p>
+<p><strong>Problem 1.4</strong> True. Attention does not know word order by itself.
+We have to add a positional embedding to each token tells the model where the token is.</p>
+<p><strong>Problem 1.5</strong> False. In the decoder’s second attention block (cross-attention), the encoder output gives the Key and Value.
+The Query comes from the decoder (slides 16-2 and 16-3).</p>
+<p><strong>Problem 1.6</strong> True. Tokenizers split text into subwords, so one word can be several tokens.</p>
+<p><strong>Problem 1.7</strong> False. In decoding, only the new token needs Q, K, V. Each projection costs O(d²), so the cost is O(d²).</p>
+<p><strong>Problem 1.8</strong> True. FlashAttention tiles the computation so it stays in fast on-chip memory (SRAM). This reduces slow memory reads and writes.</p>
+<p><strong>Problem 1.9</strong>  True. Humans rank or rate outputs, a reward model learns from that, and the reward model then guides the LLM’s training.</p>
+<p><strong>Problem 1.10</strong> False. KV-cache is used in inference (decoding).
+In training, all tokens are processed in parallel, so there is no need to cache K and V.</p>
+<h1 id="2-lab-1-recurrent-neural-network-for-sentiment-analysis-35pts">2 Lab (1): Recurrent Neural Network for Sentiment Analysis (35pts)</h1>
+<h2 id="a">(a)</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_imdb</span>(<span class="hljs-params">base_csv: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;IMDBDataset.csv&#x27;</span></span>):
+    hp = HyperParams()
+    df = pd.read_csv(base_csv)
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">clean_text</span>(<span class="hljs-params">text</span>):
+        text = re.sub(<span class="hljs-string">r&#x27;&lt;.*?&gt;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, text)  <span class="hljs-comment"># remove HTML tags</span>
+        <span class="hljs-keyword">return</span> text.lower().strip()
+
+    df[<span class="hljs-string">&#x27;review&#x27;</span>] = df[<span class="hljs-string">&#x27;review&#x27;</span>].apply(clean_text)
+    X = df[<span class="hljs-string">&#x27;review&#x27;</span>].to_numpy()
+    y = df[<span class="hljs-string">&#x27;sentiment&#x27;</span>].to_numpy()
+
+    <span class="hljs-comment"># 20% test; then 12.5% of the remaining 80% = 10% validation, 70% train</span>
+    X_train_val, X_test, y_train_val, y_test = train_test_split(
+        X, y, test_size=<span class="hljs-number">0.20</span>, random_state=hp.SEED, stratify=y)
+    X_train, X_val, y_train, y_val = train_test_split(
+        X_train_val, y_train_val, test_size=<span class="hljs-number">0.125</span>,
+        random_state=hp.SEED, stratify=y_train_val)
+
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;shape of train data is <span class="hljs-subst">{X_train.shape}</span>&#x27;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;shape of test data is <span class="hljs-subst">{X_test.shape}</span>&#x27;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;shape of valid data is <span class="hljs-subst">{X_val.shape}</span>&#x27;</span>)
+    <span class="hljs-keyword">return</span> X_train, X_val, X_test, y_train, y_val, y_test
+</div></code></pre>
+<p>Output: train (35000,), test (10000,), valid (5000,), which is the 7:1:2 split. stratify keeps the positive/negative balance equal in all three sets.</p>
+<h2 id="b">(b)</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_vocab</span>(<span class="hljs-params">x_train: <span class="hljs-built_in">list</span>, min_freq: <span class="hljs-built_in">int</span> = <span class="hljs-number">5</span>, hparams=<span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">dict</span>:
+    <span class="hljs-keyword">if</span> hparams <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        hparams = HyperParams()
+
+    corpus = Counter()
+    <span class="hljs-keyword">for</span> review <span class="hljs-keyword">in</span> x_train:
+        corpus.update(t <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> review.split() <span class="hljs-keyword">if</span> t <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> hparams.STOP_WORDS)
+
+    corpus_ = [word <span class="hljs-keyword">for</span> word, freq <span class="hljs-keyword">in</span> corpus.items() <span class="hljs-keyword">if</span> freq &gt;= min_freq]
+    vocab = {w: i + <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> i, w <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(corpus_)}  <span class="hljs-comment"># 0 and 1 are reserved</span>
+    vocab[hparams.PAD_TOKEN] = hparams.PAD_INDEX
+    vocab[hparams.UNK_TOKEN] = hparams.UNK_INDEX
+    <span class="hljs-keyword">return</span> vocab
+</div></code></pre>
+<p>Word counts come from the training set only, so no information leaks from validation or test. Output: vocabulary size 54,327.</p>
+<h2 id="c">(c)</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize</span>(<span class="hljs-params">vocab: <span class="hljs-built_in">dict</span>, example: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>:
+    unk_index = vocab[<span class="hljs-string">&#x27;&lt;unk&gt;&#x27;</span>]
+    <span class="hljs-keyword">return</span> [vocab.get(word, unk_index) <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> example.split()]
+</div></code></pre>
+<p>Words missing from the vocabulary (stop words and rare words) map to <code>&lt;unk&gt;</code>, so the output length equals the number of words.</p>
+<h2 id="d">(d)</h2>
+<p><strong>getitem</strong> tokenizes the review into ids, truncates to max_length, and converts the string label to a binary index.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, idx: <span class="hljs-built_in">int</span></span>):
+    ids = tokenize(<span class="hljs-variable language_">self</span>.vocab, <span class="hljs-variable language_">self</span>.x[idx])[:<span class="hljs-variable language_">self</span>.max_length]  <span class="hljs-comment"># truncate to max_length</span>
+    length = <span class="hljs-built_in">len</span>(ids)
+    label = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.y[idx] == <span class="hljs-string">&#x27;positive&#x27;</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&#x27;ids&#x27;</span>: ids, <span class="hljs-string">&#x27;length&#x27;</span>: length, <span class="hljs-string">&#x27;label&#x27;</span>: label}
+</div></code></pre>
+<h2 id="e">(e)</h2>
+<p>The model has an embedding layer, an LSTM, a dropout layer, and a fully-connected layer.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">class</span> <span class="hljs-title class_">LSTM</span>(nn.Module):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, vocab_size, embedding_dim, hidden_dim, output_dim,
+                 n_layers, dropout_rate, pad_index, bidirectional, **kwargs</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        <span class="hljs-variable language_">self</span>.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=pad_index)
+        <span class="hljs-variable language_">self</span>.lstm = nn.LSTM(embedding_dim, hidden_dim, num_layers=n_layers,
+                            bidirectional=bidirectional, batch_first=<span class="hljs-literal">True</span>)
+        <span class="hljs-variable language_">self</span>.fc = nn.Linear(hidden_dim * (<span class="hljs-number">2</span> <span class="hljs-keyword">if</span> bidirectional <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>), output_dim)
+        <span class="hljs-variable language_">self</span>.dropout = nn.Dropout(p=dropout_rate)
+
+        <span class="hljs-comment"># Weight initialization. DO NOT CHANGE!</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;weight_init_fn&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> kwargs:
+            <span class="hljs-variable language_">self</span>.apply(init_weights)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-variable language_">self</span>.apply(kwargs[<span class="hljs-string">&quot;weight_init_fn&quot;</span>])
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, ids, length</span>):
+        embedded = <span class="hljs-variable language_">self</span>.dropout(<span class="hljs-variable language_">self</span>.embedding(ids))
+        packed = nn.utils.rnn.pack_padded_sequence(
+            embedded, length.cpu().long(), batch_first=<span class="hljs-literal">True</span>, enforce_sorted=<span class="hljs-literal">False</span>)
+        _, (hidden, _) = <span class="hljs-variable language_">self</span>.lstm(packed)
+
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.lstm.bidirectional:
+            final = torch.cat((hidden[-<span class="hljs-number">2</span>], hidden[-<span class="hljs-number">1</span>]), dim=<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">else</span>:
+            final = hidden[-<span class="hljs-number">1</span>]
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.fc(<span class="hljs-variable language_">self</span>.dropout(final))  <span class="hljs-comment"># logits: [batch, output_dim]</span>
+</div></code></pre>
+<h2 id="f">(f)</h2>
+<table>
+<thead>
+<tr>
+<th>Epoch</th>
+<th>Train loss</th>
+<th>Valid loss</th>
+<th>Valid acc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.689</td>
+<td>0.660</td>
+<td>0.625</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.471</td>
+<td>0.397</td>
+<td>0.829</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.270</td>
+<td>0.387</td>
+<td>0.853</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.169</td>
+<td>0.364</td>
+<td>0.861</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.111</td>
+<td>0.480</td>
+<td>0.867</td>
+</tr>
+</tbody>
+</table>
+<p>I kept the epoch-4 weights (lowest validation loss) for testing: test loss 0.365, test accuracy 0.857.</p>
+<p><strong>Learning dynamics.</strong></p>
+<ul>
+<li><strong>Training loss</strong> falls at every epoch, from 0.689 (about ln 2, random guessing) to 0.111. Epoch 1 is slow partly because of the 200-step learning rate warmup.</li>
+<li><strong>Validation loss</strong> is not steady. It falls until epoch 4 (0.364), then rises to 0.480 while training loss keeps falling. This is overfitting. The model memorizes the training reviews and becomes overconfident on its mistakes. Validation accuracy still edges up, so the increase comes from a few confidently wrong predictions.</li>
+</ul>
+<p><strong>First test example.</strong> The review (about the Dr. Seuss estate) is truly negative. The model predicted negative with probability 0.867. This meets my expectation, since test accuracy is 85.7%. The confidence is moderate because each word is a single number (<code>EMBEDDING_DIM = 1</code>) and the review expresses negativity as a complaint, not through strongly negative words. One example is only anecdotal.</p>
+<h1 id="3-lab-2-large-language-model-for-text-generation-45-pts">3 Lab (2) Large Language Model for Text Generation (45 pts)</h1>
+<h2 id="a-1">(a)</h2>
+<pre class="hljs"><code><div>model = AutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>).to(device)
+tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
+tokenizer.pad_token = tokenizer.eos_token
+model.config.pad_token_id = model.config.eos_token_id
+
+inputs = tokenizer(prompt, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>).to(device)
+gen_tokens = model.generate(input_ids=input_ids, attention_mask=attention_mask, max_length=max_length)
+gen_text = tokenizer.decode(gen_tokens[<span class="hljs-number">0</span>], skip_special_tokens=<span class="hljs-literal">True</span>)
+</div></code></pre>
+<p>Output (pre-trained): GPT-2 is a language model based on transformer developed by OpenAI. It is a language that is used to describe the behavior of a system. It is a language that is used to describe the behavior of a system. ...</p>
+<h2 id="b-1">(b)</h2>
+<pre class="hljs"><code><div>dataset = load_dataset(<span class="hljs-string">&quot;Salesforce/wikitext&quot;</span>, <span class="hljs-string">&quot;wikitext-2-raw-v1&quot;</span>)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenize_function</span>(<span class="hljs-params">examples</span>):
+    tokenized = tokenizer(examples[<span class="hljs-string">&quot;text&quot;</span>], truncation=<span class="hljs-literal">True</span>, max_length=<span class="hljs-number">128</span>, padding=<span class="hljs-string">&quot;max_length&quot;</span>)
+    tokenized[<span class="hljs-string">&quot;labels&quot;</span>] = tokenized[<span class="hljs-string">&quot;input_ids&quot;</span>].copy()
+    <span class="hljs-keyword">return</span> tokenized
+
+tokenized_datasets_train = dataset_train.<span class="hljs-built_in">map</span>(tokenize_function, batched=<span class="hljs-literal">True</span>, remove_columns=[<span class="hljs-string">&quot;text&quot;</span>])
+tokenized_datasets_valid = dataset_valid.<span class="hljs-built_in">map</span>(tokenize_function, batched=<span class="hljs-literal">True</span>, remove_columns=[<span class="hljs-string">&quot;text&quot;</span>])
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=<span class="hljs-literal">False</span>)
+</div></code></pre>
+<p>Batch shape: [4, 128] for input_ids, attention_mask and labels.</p>
+<h2 id="c-1">(c)</h2>
+<pre class="hljs"><code><div>input_ids = batch[<span class="hljs-string">&quot;input_ids&quot;</span>].to(device)
+attention_mask = batch[<span class="hljs-string">&quot;attention_mask&quot;</span>].to(device)
+labels = batch[<span class="hljs-string">&quot;labels&quot;</span>].to(device)
+
+outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+logits = outputs.logits
+
+loss = loss_fn(shift_logits.view(-<span class="hljs-number">1</span>, shift_logits.size(-<span class="hljs-number">1</span>)), shift_labels.view(-<span class="hljs-number">1</span>))
+</div></code></pre>
+<p>Initial perplexity (pre-trained): 48.56</p>
+<h2 id="d-1">(d)</h2>
+<pre class="hljs"><code><div>training_args = TrainingArguments(
+    output_dir=<span class="hljs-string">&quot;./gpt2-wikitext-2&quot;</span>,
+    num_train_epochs=<span class="hljs-number">3</span>,
+    per_device_train_batch_size=<span class="hljs-number">8</span>,
+    per_device_eval_batch_size=<span class="hljs-number">8</span>,
+    eval_steps=<span class="hljs-number">400</span>,
+    save_steps=<span class="hljs-number">800</span>,
+    warmup_steps=<span class="hljs-number">500</span>,
+    prediction_loss_only=<span class="hljs-literal">True</span>,
+    eval_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+    logging_strategy=<span class="hljs-string">&quot;epoch&quot;</span>,
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_datasets_train,
+    eval_dataset=tokenized_datasets_valid,
+    data_collator=data_collator,
+)
+result_full = trainer.train()
+trainer.save_model()
+
+model_finetuned = AutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;./gpt2-wikitext-2&quot;</span>).to(device)
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Epoch</th>
+<th>Training loss</th>
+<th>Validation loss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3.758</td>
+<td>3.340</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.173</td>
+<td>3.377</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2.872</td>
+<td>3.409</td>
+</tr>
+</tbody>
+</table>
+<p>Training loss keeps falling, but validation loss is lowest at epoch 1 and then rises. The model starts to overfit the small training subset after the first epoch.</p>
+<p><strong>Fine-tuned perplexity: 29.82</strong></p>
+<p><strong>Generated text:</strong> GPT-2 is a language model based on transformers developed by OpenAI , a consortium of universities and universities . The language model is based on the concept of a set of functional languages , which are used to represent the language . ...</p>
+<h2 id="e-1">(e)</h2>
+<pre class="hljs"><code><div>model_lora = AutoModelForCausalLM.from_pretrained(<span class="hljs-string">&quot;gpt2&quot;</span>)
+model_lora = get_peft_model(model_lora, peft_config).to(device)
+
+<span class="hljs-comment"># TrainingArguments: same as (d), with output_dir=&quot;./gpt2-lora-wikitext-2&quot;</span>
+trainer = Trainer(
+    model=model_lora,
+    args=training_args,
+    train_dataset=tokenized_datasets_train,
+    eval_dataset=tokenized_datasets_valid,
+    data_collator=data_collator,
+)
+result_lora = trainer.train()
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Epoch</th>
+<th>Training loss</th>
+<th>Validation loss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.304</td>
+<td>3.735</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.925</td>
+<td>3.546</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3.826</td>
+<td>3.518</td>
+</tr>
+</tbody>
+</table>
+<p>Trainable parameters: 2.36M of 126.8M (1.86%).</p>
+<p>LoRA perplexity: 32.89</p>
+<p>Generated text: GPT-2 is a language model based on transformers developed by OpenAI , which is based on the concept of a &quot;transformation-based&quot; language model . The model is based on the concept of a &quot;transformation-based&quot; language model , ...</p>
+<h2 id="f-1">(f)</h2>
+<pre class="hljs"><code><div><span class="hljs-built_in">print</span>(result_full.metrics[<span class="hljs-string">&quot;train_runtime&quot;</span>], result_lora.metrics[<span class="hljs-string">&quot;train_runtime&quot;</span>])
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Training time</th>
+<th>Perplexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-trained GPT-2</td>
+<td>none</td>
+<td>48.56</td>
+</tr>
+<tr>
+<td>Fully fine-tuned</td>
+<td>7 min 20 s</td>
+<td>29.82</td>
+</tr>
+<tr>
+<td>LoRA fine-tuned</td>
+<td>5 min 19 s</td>
+<td>32.89</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Training time.</strong> Full fine-tuning took 7:20 and LoRA took 5:19, so LoRA was about 28% faster. LoRA trains only 1.86% of the weights. It does not compute weight gradients or optimizer updates (Adam) for the other 98%, so each step is cheaper and needs less memory. The saving is moderate because the forward pass and the backward pass through the network are still full size.</p>
+<p><strong>Perplexity.</strong> Pre-trained 48.56, full fine-tuning 29.82, LoRA 32.89. Both fine-tuned models improve a lot because they adapt to Wikipedia text. Full fine-tuning is best because it can change all weights. LoRA can only change a small low-rank part of the model, so it fits the data a bit less well. Full fine-tuning also overfits (validation loss rises after epoch 1). Its perplexity would likely be a little better with fewer epochs. LoRA's validation loss kept falling.</p>
+<p><strong>Generated text.</strong> All three outputs repeat themselves. This is typical of greedy decoding with a small model. The pre-trained text is plain prose and loops on &quot;a language that is used to describe the behavior of a system&quot;. Both fine-tuned models copy the WikiText format (spaces before commas and periods) and sound more encyclopedic. Their content is still wrong, for example &quot;a consortium of universities&quot;. So the lower perplexity shows better style and word statistics, but not better factual quality.</p>
+
+</body>
+</html>
