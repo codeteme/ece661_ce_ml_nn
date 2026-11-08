@@ -24,7 +24,7 @@ class STE(torch.autograd.Function):
 
             nz = w[w != 0]
             # Compute alpha (scale) for dynamic scaling
-            alpha = alpha = nz.max() - nz.min()
+            alpha = nz.max() - nz.min()
             # Compute beta (bias) for dynamic scaling
             beta = nz.min()
             # Scale w with alpha and beta so that all elements in ws are between 0 and 1
