@@ -20,20 +20,21 @@ class STE(torch.autograd.Function):
         else:
             # Lab3 (a), Your code here:
             # Build a mask to record position of zero weights
-            weight_mask = ...
+            weight_mask = (w != 0).float()
 
+            nz = w[w != 0]
             # Compute alpha (scale) for dynamic scaling
-            alpha = ...
+            alpha = alpha = nz.max() - nz.min()
             # Compute beta (bias) for dynamic scaling
-            beta = ...
+            beta = nz.min()
             # Scale w with alpha and beta so that all elements in ws are between 0 and 1
-            ws = ...
+            ws = (w - beta) / alpha  
 
             step = 2 ** (bit)-1
             # Quantize ws with a linear quantizer to "bit" bits
-            R = ...
+            R = torch.round(ws * step) / step
             # Scale the quantized weight R back with alpha and beta
-            wq = ...
+            wq = alpha * R + beta
 
             # Restore zero elements in wq 
             wq = wq*weight_mask
